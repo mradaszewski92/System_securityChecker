@@ -1,0 +1,52 @@
+#!/bin/bash
+
+
+#################################################################################
+#
+#  System_secCheck
+#  ----------------
+#  Author: Marcin Radaszewski
+#  GitHub   : https://github.com/
+#  "System_secCheck" comes with ABSOLUTELY NO WARRANTY. This is free software, and you are
+#  welcome to redistribute it under the terms of the GNU General Public License.
+#  
+#################################################################################
+
+
+
+findHiddenFile() {
+
+	# CHECK IF SOME HIDDEN FILE EXIST IN /usr/share/
+
+	if [ -n ${PATH} ]; then
+
+		PATH1=${PATH}
+		envPath=$(echo "${PATH1}" | tr ':' ' ')	
+
+		if [ -n $(find /usr/ -maxdepth 1 -name ".*" 2>/dev/null)  ]; then
+			echo "--------------- CHECKING HIDDEN FILE ---------------"	
+			echo "[!] Warning, some hidden/s file in Your \$PATH ENVIROMENT"
+			echo "-----------------------------------------------------"
+		else
+			echo "--------------- CHECKING HIDDEN FILE ---------------" 
+			echo "[OK] PATH /usr/"
+			echo "-----------------------------------------------------"
+		fi
+	fi
+	echo 				
+}
+
+
+findHiddenFile 
+echo "[*] Host_name       	:" $(hostname)
+echo "[*] Os_version      	:" $(uname -v)
+echo "[*] Architecture    	:" $(uname -m)
+echo "[*] Kernel          	:" $(uname -r) | sed 's/-.*//'
+echo "[*] OS_FULLNAME	 	:" $(grep "^VERSION_ID=" /etc/os-release | awk -F= '{print $2}' |tr -d '"')
+echo "[*] OS    				:" $(grep "^VERSION=" /etc/os-release | awk -F= '{print $2}' |tr -d '"')
+echo "[*] Default Shell  	:" $SHELL
+echo "--------------[*] Generate raport from NMAP[*]--------------"
+
+
+# TO DO: CHECK NETWORK
+# nmap -n -sS $ip -oX /usr/share/scan/$(date +"%m-%d-%y")
