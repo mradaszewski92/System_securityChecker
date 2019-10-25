@@ -46,6 +46,7 @@ echo "[*] Kernel          	:" $(uname -r) | sed 's/-.*//'
 echo "[*] OS_FULLNAME	 	:" $(grep "^VERSION_ID=" /etc/os-release | awk -F= '{print $2}' |tr -d '"')
 echo "[*] OS    				:" $(grep "^VERSION=" /etc/os-release | awk -F= '{print $2}' |tr -d '"')
 echo "[*] Default Shell  	:" $SHELL
+
 echo "--------------[*] Generate raport from NMAP[*]--------------"
 
 
