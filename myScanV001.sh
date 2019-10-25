@@ -1,12 +1,5 @@
 # /bin/bash
 
-args=("$@")
-
-gw="[*]"
-echo $1 
-echo $2
-
-
 echo "[*]Host_name       :" $(hostname)
 echo "[*]Os_version      :" $(uname -v)
 echo "[*]Architecture    :" $(uname -m)
@@ -16,5 +9,5 @@ echo "[*]OS    :" $(grep "^VERSION=" /etc/os-release | awk -F= '{print $2}' |tr 
 echo "[*]Default Shell  :" $SHELL
 echo "[*]Generate from NMAP: "
 // write to /use/share/scan
-nmap -n -sS 192.168.1.254 -oX /usr/share/scan/$(date +"%m-%d-%y")
+nmap -n -sS $ip -oX /usr/share/scan/$(date +"%m-%d-%y")
 
