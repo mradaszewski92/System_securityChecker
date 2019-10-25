@@ -23,7 +23,7 @@ findHiddenFile() {
 
 		PATH1=${PATH}
 		envPath=$(echo "${PATH1}" | tr ':' ' ')	
-
+			echo ""
 		if [ -n $(find /usr/ -maxdepth 1 -name ".*" 2>/dev/null)  ]; then
 			echo "--------------- CHECKING HIDDEN FILE ---------------"	
 			echo "[!] Warning, some hidden/s file in Your \$PATH ENVIROMENT"
