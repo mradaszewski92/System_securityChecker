@@ -14,6 +14,7 @@
 
 
 
+
 findHiddenFile() {
 
 	# CHECK IF SOME HIDDEN FILE EXIST IN /usr/share/
