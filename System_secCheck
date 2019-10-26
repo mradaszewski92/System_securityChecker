@@ -1,44 +1,75 @@
 #!/bin/bash
 
 
-#################################################################################
-#
-#  System_secCheck
-#  ----------------
-#  Author: Marcin Radaszewski
-#  GitHub   : https://github.com/
-#  "System_secCheck" comes with ABSOLUTELY NO WARRANTY. This is free software, and you are
-#  welcome to redistribute it under the terms of the GNU General Public License.
-#  
-#################################################################################
+#############################################################################################
+#											    #
+#  System_secCheck									    #
+#  ----------------									    #
+#  Author: Marcin Radaszewski								    #
+#  GitHub   : https://github.com/							    #
+#  "System_secCheck" comes with ABSOLUTELY NO WARRANTY. This is free software, and you are  #
+#  welcome to redistribute it under the terms of the GNU General Public License.	    #
+#  											    #	
+#############################################################################################
+
+OK="[OK]"
+WAR="[!]"
+INFO="[*]"
+LINE="--------------------------------------"
 
 
+HEADER() {
+	echo "----------- $1 $2  ------------" 
+    	echo ""
+}
 
+DEBUG() {
+	echo $1 $2
+}
+
+dirCheckSum() {
+
+	HEADER $INFO "CHECK TMP DIR" 	
+	if [ -e "/$1" ];then
+		DEBUG $INFO "$1 ALREADY EXIST"
+		DEBUG $INFO "CHECK /$1 DIR"
+		if [ -e "log" ];then
+			HEADER $INFO "VERIFIES CHECKSUM"
+		else
+			DEBUG $WAR "CREATE CHECKSUM"
+			echo $(du -sh /tmp 2>/dev/null |awk '{print $1}' | sha1sum | awk '{print $1}') $1 >> log
+		fi
+	else
+		DEBUG $WAR "DIR DOESN'T EXIST"
+		fi
+}
 
 findHiddenFile() {
 
 	# CHECK IF SOME HIDDEN FILE EXIST IN /usr/share/
 
-	if [ -n ${PATH} ]; then
-
+	if [ -n ${PATH} ];then
 		PATH1=${PATH}
 		envPath=$(echo "${PATH1}" | tr ':' ' ')	
-			echo ""
-		if [ -n $(find /usr/ -maxdepth 1 -name ".*" 2>/dev/null)  ]; then
-			echo "--------------- CHECKING HIDDEN FILE ---------------"	
-			echo "[!] Warning, some hidden/s file in Your \$PATH ENVIROMENT"
-			echo "-----------------------------------------------------"
-		else
-			echo "--------------- CHECKING HIDDEN FILE ---------------" 
-			echo "[OK] PATH /usr/"
-			echo "-----------------------------------------------------"
-		fi
+
+		for dir in "tmp var //etc//passwd";do	
+			if [ -n $(find /usr/ -maxdepth 1 -name ".*" 2>/dev/null)  ];then
+				HEADER $INFO "CHECKING HIDDEN FILE"	
+				DEBUG $WAR "Warning, some hidden/s file in Your \$PATH ENVIROMENT"
+				
+			else
+				HEADER $INFO "CHECKING HIDDEN FILE" 
+				DEBUG $OK "PATH OK"
+				
+			fi
+		done
 	fi
-	echo 				
 }
 
-
-findHiddenFile 
+dirCheckSum tmp
+findHiddenFile
+echo ""
+HEADER $INFO "CHECK SYSTEM CONFIGURATION"
 echo "[*] Host_name       	:" $(hostname)
 echo "[*] Os_version      	:" $(uname -v)
 echo "[*] Architecture    	:" $(uname -m)
@@ -51,4 +82,5 @@ echo "--------------[*] Generate raport from NMAP[*]--------------"
 
 
 # TO DO: CHECK NETWORK
-# nmap -n -sS $ip -oX /usr/share/scan/$(date +"%m-%d-%y")
+#  nmap -n -sS $ip -oX /usr/share/scan/$(date +"%m-%d-%y")
+
