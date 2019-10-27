@@ -13,77 +13,78 @@
 #############################################################################################
 
 OK="[\033[32mOK\e[0m]"
+WAIT="[\033[32m*\e[0m]"
+CHECKDIR="[\033[32mCHECK\e[0m]"
 WAR="[\033[31m!\e[0m]"
-INFO="[\033[32m*\e[0m]"
+INFO="[\033[34mINFO\e[0m]"
+INFOW="[\033[31mINFO\e[0m]"
 LINE="--------------------------------------"
 
 
 HEADER() {
-	echo ""
-	echo -e "----------- $1 $2  ------------" 
-    echo ""
+echo ""
+echo -e "----------- $1 $2  ------------" 
+echo ""
 }
 
 DEBUG() {
-		echo -e $1 $2
-	
+echo -e $1 $2
+
+}
+
+CHECKSUM(){
+echo $(du -sh $1 2>/dev/null |awk '{print $1}' | sha1sum | awk '{print $1}') $1 >> log          
 }
 
 dirCheckSum() {
 
-	HEADER $INFO "CHECK TMP DIR" 	
-	if [ -e "/$1" ];then
-		DEBUG $INFO "$1 ALREADY EXIST"
-		DEBUG $INFO "CHECK /$1 DIR"
-		if [ -e "log" ];then
-			HEADER $INFO "VERIFIES CHECKSUM"
-			DIFF=$(diff -q log log1)
-			if [ "$DIFF" != "" ];then
-				DEBUG $WAR "INCORRECT CHECKSUM"
-			else
-				DEBUG $OK "CHECKSUM VALID"
-			fi
-		
-		else
-			DEBUG $WAR "CREATE CHECKSUM"
-			echo $(du -sh /tmp 2>/dev/null |awk '{print $1}' | sha1sum | awk '{print $1}') $1 >> log
-		fi
+HEADER $INFO "CHECK TMP DIR" 	
+if [ -e "/$1" ];then
+DEBUG $INFO  "$1 ALREADY EXIST"
+DEBUG $CHECKDIR "CHECK /$1 DIR"
+if [ -e "log" ];then
+	DEBUG $WAIT "VERIFIES CHECKSUM"
+	DIFF=$(diff -q log log1)
+	if [ "$DIFF" != "" ];then
+		DEBUG $INFOW "INVALID CHECKSUM"
 	else
-		DEBUG $WAR "DIR DOESN'T EXIST"
-		fi
+		DEBUG $OK "CHECKSUM VALID"
+	fi
+
+else
+	DEBUG $INFO "CREATE CHECKSUM"
+	CHECKSUM "/tmp"
+	# echo $(du -sh /tmp 2>/dev/null |awk '{print $1}' | sha1sum | awk '{print $1}') $1 >> log 
+fi
+else
+DEBUG $WAIT "DIR DOESN'T EXIST"
+fi
 }
 
 findHiddenFile() {
 	DOT="."
 
-	HEADER $INFO "CHECK $1 DIRECTORY"
+	HEADER $OK "CHECK $1 DIRECTORY"
 
 	if [ -n $PATH ];then
 
 		PATH1=${PATH}
 		envPath=$(echo "${PATH1}" | tr ':' ' ')	
-
-		for dir in "tmp var //etc//passwd";do
+		DIRECTORY="/usr ."	
+		for dir in $DIRECTORY;do
 			# ls -l -d .[!.]?* | awk '{print $9}'
-			
-			HIDDEN_FILE=$(find $DOT -name ".*" -print)
+			DEBUG $CHECKDIR "CHECKING $dir"
+			HIDDEN_FILE=$(find $dir -maxdepth 1 -name ".*" -print)
 			
 			if [ "$HIDDEN_FILE" != "" ] && [ "$HIDDEN_FILE" != "." ];then
 				
-				DEBUG $WAR "FOUND SUSPICIUS HIDDEN FILE/S"
-				
+				DEBUG $INFOW "FOUND SUSPICIUS HIDDEN FILE/S"
 				for file in $HIDDEN_FILE;do
 					DEBUG "\t$WAR" "SUSPICIOUS FILE: $file"
 				done
-
-			# if [ -n $(find "/usr/" -maxdepth 1 -name ".*" 2>/dev/null)  ];then
-			#	HEADER $INFO "CHECKING HIDDEN FILE"	
-			#	DEBUG $WAR "Warning, some hidden/s file in Your /usr DIR"
-			#   $HIDDEN_FILES = $(ls -l -d .[!.]?* | awk '{print $9}')
-					
+				
 			else
-				DEBUG $INFO "NO HIDDEN FILE/S" 
-				DEBUG $OK "PATH OK"
+				DEBUG "$INFO" "NOT FOUND HIDDEN FILES/DIRECTORIES. PATH OK"
 				
 			fi
 		done
@@ -101,10 +102,13 @@ echo "[*] Kernel          	:" $(uname -r) | sed 's/-.*//'
 echo "[*] OS_FULLNAME	 	:" $(grep "^VERSION_ID=" /etc/os-release | awk -F= '{print $2}' |tr -d '"')
 echo "[*] OS    				:" $(grep "^VERSION=" /etc/os-release | awk -F= '{print $2}' |tr -d '"')
 echo "[*] Default Shell  	:" $SHELL
-
+echo "[*] Bash_version		:" $BASH_VERSION
 echo "--------------[*] Generate raport from NMAP[*]--------------"
 
+systeGeneralInfo(){
 
+
+}
 # TO DO: CHECK NETWORK
 #  nmap -n -sS $ip -oX /usr/share/scan/$(date +"%m-%d-%y")
 
