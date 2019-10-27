@@ -12,21 +12,19 @@
 #  											    											#	
 #############################################################################################
 
-OK="[\033[32mOK\e[0m]"
-WAR="[\033[31m!\e[0m]"
-INFO="[\033[32m*\e[0m]"
+OK="[OK]"
+WAR="[!]"
+INFO="[*]"
 LINE="--------------------------------------"
 
 
 HEADER() {
-	echo ""
-	echo -e "----------- $1 $2  ------------" 
-    echo ""
+	echo "----------- $1 $2  ------------" 
+    	echo ""
 }
 
 DEBUG() {
-		echo -e $1 $2
-	
+	echo $1 $2
 }
 
 dirCheckSum() {
@@ -67,14 +65,15 @@ findHiddenFile() {
 			# ls -l -d .[!.]?* | awk '{print $9}'
 			
 			HIDDEN_FILE=$(find $DOT -name ".*" -print)
-			
-			if [ "$HIDDEN_FILE" != "" ] && [ "$HIDDEN_FILE" != "." ];then
+			# DEBUG $INFO $HIDDEN_FILE
+			if [ "$HIDDEN_FILE" != '' ];then
 				
 				DEBUG $WAR "FOUND SUSPICIUS HIDDEN FILE/S"
 				
 				for file in $HIDDEN_FILE;do
-					DEBUG "\t$WAR" "SUSPICIOUS FILE: $file"
+					DEBUG $WAR "SUSPICIOUS FILE: $file"
 				done
+			
 
 			# if [ -n $(find "/usr/" -maxdepth 1 -name ".*" 2>/dev/null)  ];then
 			#	HEADER $INFO "CHECKING HIDDEN FILE"	
