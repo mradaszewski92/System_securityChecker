@@ -71,7 +71,7 @@ findHiddenFile() {
 		PATH1=${PATH}
 		envPath=$(echo "${PATH1}" | tr ':' ' ')	
 		DIRECTORY="/usr ."	
-		for dir in $DIRECTORY;do
+		for dir in $DIRECTORY;
 			# ls -l -d .[!.]?* | awk '{print $9}'
 			DEBUG $CHECKDIR "CHECKING $dir"
 			HIDDEN_FILE=$(find $dir -maxdepth 1 -name ".*" -print)
