@@ -67,6 +67,7 @@ echo ""
 
 ./SYSTEM_INFO.sh
 ./NETWORK_CHECK.sh
+
 # echo "--------------[*] Generate raport from NMAP[*]--------------"
 
 # TO DO: CHECK NETWORK

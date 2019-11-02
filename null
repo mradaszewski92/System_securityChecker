@@ -1,0 +1,12 @@
+Starting Nmap 7.80 ( https://nmap.org ) at 2019-11-02 21:38 CET
+Stats: 0:00:02 elapsed; 0 hosts completed (0 up), 256 undergoing Ping Scan
+Ping Scan Timing: About 1.95% done; ETC: 21:40 (0:01:40 remaining)
+Stats: 0:00:04 elapsed; 0 hosts completed (0 up), 256 undergoing Ping Scan
+Ping Scan Timing: About 3.91% done; ETC: 21:40 (0:01:38 remaining)
+Nmap scan report for LenovoT420t.home (192.168.1.50)
+Host is up (0.00030s latency).
+Nmap scan report for COM-MID1.home (192.168.1.177)
+Host is up (0.0069s latency).
+Nmap scan report for netiabox.home (192.168.1.254)
+Host is up (0.0035s latency).
+Nmap done: 256 IP addresses (3 hosts up) scanned in 6.95 seconds
