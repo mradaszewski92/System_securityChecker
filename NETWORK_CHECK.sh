@@ -49,7 +49,7 @@ P_SMTP="25"
 HEADER $INFO "NETWORK DETAILS"
 
 get_local_ip(){
-    ip=$(python ip.py)
+    ip=$(python3 pyScript/ip.py)
     echo -e "$LOCALIP $ip"    
 }
 
@@ -69,8 +69,8 @@ get_interface(){
 
 find_host(){
     DEBUG "$INFOW" "CHECK LOCAL NETWORK: $LOCAL_LAN"
-    nmap -n -sn "$LOCAL_LAN/24" -oX xml_raport.xml 1>/dev/null
-    ACTIVE_HOSTS=($(python3 xml_parser.py))
+    nmap -n -sn "$LOCAL_LAN/24" -oX report/xml_raport.xml 1>/dev/null
+    ACTIVE_HOSTS=($(python3 pyScript/xml_parser.py))
     element_count=${#ACTIVE_HOSTS[@]}
     
     for i in $(seq 0 $(expr $element_count - 1));do

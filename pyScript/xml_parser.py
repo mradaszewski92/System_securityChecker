@@ -2,7 +2,7 @@
 
 import xml.etree.ElementTree as ET
 
-tree = ET.parse("xml_raport")
+tree = ET.parse("report/xml_raport.xml")
 elem = root = tree.getroot()
 general_res = []
 

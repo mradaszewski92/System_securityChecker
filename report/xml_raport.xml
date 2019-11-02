@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.80 scan initiated Sat Nov  2 22:04:11 2019 as: nmap -n -sn -oX report/xml_raport.xml 192.168.1.0/24 -->
+<nmaprun scanner="nmap" args="nmap -n -sn -oX report/xml_raport.xml 192.168.1.0/24" start="1572728651" startstr="Sat Nov  2 22:04:11 2019" version="7.80" xmloutputversion="1.04">
+<verbose level="0"/>
+<debugging level="0"/>
+<host><status state="up" reason="conn-refused" reason_ttl="0"/>
+<address addr="192.168.1.50" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<times srtt="1303" rttvar="5000" to="100000"/>
+</host>
+<host><status state="up" reason="conn-refused" reason_ttl="0"/>
+<address addr="192.168.1.177" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<times srtt="136307" rttvar="136307" to="681535"/>
+</host>
+<host><status state="up" reason="conn-refused" reason_ttl="0"/>
+<address addr="192.168.1.199" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<times srtt="71114" rttvar="71114" to="355570"/>
+</host>
+<host><status state="up" reason="syn-ack" reason_ttl="0"/>
+<address addr="192.168.1.254" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<times srtt="9889" rttvar="9889" to="100000"/>
+</host>
+<runstats><finished time="1572728663" timestr="Sat Nov  2 22:04:23 2019" elapsed="11.49" summary="Nmap done at Sat Nov  2 22:04:23 2019; 256 IP addresses (4 hosts up) scanned in 11.49 seconds" exit="success"/><hosts up="4" down="252" total="256"/>
+</runstats>
+</nmaprun>
