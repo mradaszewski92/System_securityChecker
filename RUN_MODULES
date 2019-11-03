@@ -37,7 +37,7 @@ echo $(du -sh $1 2>/dev/null |awk '{print $1}' | sha1sum | awk '{print $1}') $1 
 
 ./SYSTEM_INFO.sh
 ./DIR_CHECK.sh
-# ./FIND_HIDDEN_FILE.sh
+./FIND_HIDDEN_FILE.sh
 ./NETWORK_CHECK.sh
 
 
