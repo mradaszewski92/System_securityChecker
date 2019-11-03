@@ -35,41 +35,9 @@ CHECKSUM(){
 echo $(du -sh $1 2>/dev/null |awk '{print $1}' | sha1sum | awk '{print $1}') $1 >> log          
 }
 
-
-HEADER $INFO "CHECK TMP DIR" 	
-
-if [ -e "/$1" ];then
-    DEBUG $INFO  "$1 ALREADY EXIST"
-    DEBUG $CHECKDIR "CHECK /$1 DIR"
-    
-if [ -e "log" ];then
-	DEBUG $WAIT "VERIFIES CHECKSUM"
-	DIFF=$(diff -q log log1)
-	if [ "$DIFF" != "" ];then
-		DEBUG $INFOW "INVALID CHECKSUM"
-	else
-		DEBUG $OK "CHECKSUM VALID"
-	fi
-
-else
-	DEBUG $INFO "CREATE CHECKSUM"
-	CHECKSUM "/tmp"
-	# echo $(du -sh /tmp 2>/dev/null |awk '{print $1}' | sha1sum | awk '{print $1}') $1 >> log 
-fi
-else
-    DEBUG $WAIT "DIR DOESN'T EXIST"
-fi
-
-./DIR_CHECK.sh
-./FIND_HIDDEN_FILE.sh
-echo ""
-
-
 ./SYSTEM_INFO.sh
+./DIR_CHECK.sh
+# ./FIND_HIDDEN_FILE.sh
 ./NETWORK_CHECK.sh
 
-# echo "--------------[*] Generate raport from NMAP[*]--------------"
-
-# TO DO: CHECK NETWORK
-#  nmap -n -sS $ip -oX /usr/share/scan/$(date +"%m-%d-%y")
 
