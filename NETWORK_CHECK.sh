@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# TODO ARP -A
+
 CHECKDIR="[\033[32mCHECK\e[0m]"
 INFO="[\033[34mINFO\e[0m]"
 INFO_ACTIVE="[\033[32mDETECTED\e[0m]"

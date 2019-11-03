@@ -1,11 +1,16 @@
 import socket
 
-SocCKet = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 try:
-    SocCKet.connect(("google.com", 80))
+    sock.connect(("google.com", 80))
     if True:
-        IP_Address = SocCKet.getsockname()[0]
-        SocCKet.close()
+
+        IP_Address = sock.getsockname()[0]
+
+        # CLOSE SOCKET
+        sock.close()
+
+        # PRINT IP
         print(IP_Address)
 except:
-    SocCKet.close()
+    sock.close()
