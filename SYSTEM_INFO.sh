@@ -12,13 +12,27 @@ echo ""
 echo -e "----------- $1 $2  ------------" 
 echo ""
 }
+active_status(){
+    HEADER "$INFO"
+    service --status-all |grep +
+}
 
-HEADER $INFO "CHECK SYSTEM CONFIGURATION"
-echo -e "$INFO Host_name        :" $(hostname)
-echo -e "$INFO Os_version       :" $(uname -v)
-echo -e "$INFO Architecture     :" $(uname -m)
-echo -e "$INFO Kernel           :" $(uname -r) | sed 's/-.*//'
-echo -e "$INFO OS_FULLNAME      :" $(grep "^VERSION_ID=" /etc/os-release | awk -F= '{print $2}' |tr -d '"')
-echo -e "$INFO OS               :" $(grep "^VERSION=" /etc/os-release | awk -F= '{print $2}' |tr -d '"')
-echo -e "$INFO Default Shell    :" $SHELL
-echo -e "$INFO Bash_version     :" $BASH_VERSION
+
+system_info(){
+    HEADER $INFO "CHECK SYSTEM CONFIGURATION"
+    echo -e "$INFO Host_name        :" $(hostname)
+    echo -e "$INFO Os_version       :" $(uname -v)
+    echo -e "$INFO Architecture     :" $(uname -m)
+    echo -e "$INFO Kernel           :" $(uname -r) | sed 's/-.*//'
+    echo -e "$INFO OS_FULLNAME      :" $(grep "^VERSION_ID=" /etc/os-release | awk -F= '{print $2}' |tr -d '"')
+    echo -e "$INFO OS               :" $(grep "^VERSION=" /etc/os-release | awk -F= '{print $2}' |tr -d '"')
+    echo -e "$INFO Default Shell    :" $SHELL
+    echo -e "$INFO Bash_version     :" $BASH_VERSION
+}
+
+system_info
+active_status
+
+
+
+

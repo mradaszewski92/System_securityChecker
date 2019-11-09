@@ -29,7 +29,7 @@ echo $(du -sh $1 2>/dev/null |awk '{print $1}' | sha1sum | awk '{print $1}') $1 
 
 LOCAL_MACHINE_IP=""
 LOOP_BACK="127.0.0.1"
-LOCAL_LAN="192.168.1.0"
+LOCAL_LAN="192.168.0.0"
 I_ETH="eth0"
 I_WLAN="wlan0"
 I_WLAN_mon="wlan0man"
@@ -45,6 +45,19 @@ P_POP="110"
 P_SQL="3306"
 
 HEADER $INFO "NETWORK DETAILS"
+
+function get_net_stat{
+        # cat /proc/net/dev
+        # cat /proc/net/tcp; cat /proc/net/ud
+        # cat /proc/net/snmp
+        # netstat -i
+        # netstat -s
+        # netstat --inet/ -4
+        # netstat -p | headER
+        # netstat -l |head
+        
+
+}
 
 get_local_ip(){
 
@@ -77,7 +90,7 @@ find_host(){
     if [ "$LOCAL_MACHINE_IP" != "" ];then
         
         DEBUG "$INFOW" "CHECK LOCAL NETWORK: $LOCAL_LAN"
-        
+        # ZROBIC OBSLUGE BLEDU
         nmap -n -sn "$LOCAL_LAN/24" -oX report/xml_raport.xml 1>/dev/null
         ACTIVE_HOSTS=($(python3 script/xml_parser.py))
         element_count=${#ACTIVE_HOSTS[@]}
