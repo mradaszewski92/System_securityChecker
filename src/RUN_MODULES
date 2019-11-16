@@ -1,15 +1,14 @@
 #!/bin/bash
 
-
 #############################################################################################
-#											  			 								    #
-#  System_secCheck									    									#
-#  ----------------									    									#
-#  Author: Marcin Radaszewski								    							#
-#  GitHub   : https://github.com/							    							#
+#											  			 								                                              #
+#  System_secCheck									    									                                  #
+#  ----------------									    									                                  #
+#  Author: Marcin Radaszewski								    							                              #
+#  GitHub   : https://github.com/						    							                              #
 #  "System_secCheck" comes with ABSOLUTELY NO WARRANTY. This is free software, and you are  #
-#  welcome to redistribute it under the terms of the GNU General Public License.	    	#
-#  											    											#	
+#  welcome to redistribute it under the terms of the GNU General Public License.	    	    #
+#  											    											                                          #
 #############################################################################################
 
 
@@ -36,8 +35,8 @@ echo $(du -sh $1 2>/dev/null |awk '{print $1}' | sha1sum | awk '{print $1}') $1 
 }
 
 ./SYSTEM_INFO.sh
+./NETWORK_CHECK.sh
 ./DIR_CHECK.sh
 ./FIND_HIDDEN_FILE.sh
-./NETWORK_CHECK.sh
 
 

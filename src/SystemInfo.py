@@ -1,5 +1,5 @@
 import subprocess
-from subprocess import Popen, PIPE
+from subprocess import PIPE
 import time
 import os
 import json
@@ -42,12 +42,15 @@ class SystemInfo(object):
             return None
 
     def get_osInfo_dict(self):
+        """:return os info as dict"""
         return self.os_info_dict
 
     def get_osInfo_list(self):
+        """:return os info as list"""
         return self.os_info_list
 
     def get_osInfo_list_json(self):
+        """:return os info as json"""
         return json.dumps(self.get_osInfo_dict())
 
     def __str__(self):
