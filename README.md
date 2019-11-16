@@ -6,3 +6,5 @@ Security auditing tool for Linux Debian.
 ## Used technologies:
 * Python 3
 * Linux Shell
+
+## FEATURES
