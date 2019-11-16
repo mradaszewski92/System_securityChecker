@@ -1,6 +1,6 @@
 from xml.etree.ElementTree import tostring, Element
-import Filestat, SystemInfo
-from auxiliary_functions import *
+from src import Filestat, SystemInfo
+from src.auxiliary_functions import *
 
 from xml.dom import minidom
 

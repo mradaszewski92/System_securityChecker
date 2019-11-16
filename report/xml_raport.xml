@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE nmaprun>
 <?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
-<!-- Nmap 7.80 scan initiated Sun Nov  3 23:01:25 2019 as: nmap -n -sn -oX report/xml_raport.xml 192.168.1.0/24 -->
-<nmaprun scanner="nmap" args="nmap -n -sn -oX report/xml_raport.xml 192.168.1.0/24" start="1572818485" startstr="Sun Nov  3 23:01:25 2019" version="7.80" xmloutputversion="1.04">
+<!-- Nmap 7.80 scan initiated Thu Nov  7 23:45:20 2019 as: nmap -n -sn -oX report/xml_raport.xml 192.168.0.0/24 -->
+<nmaprun scanner="nmap" args="nmap -n -sn -oX report/xml_raport.xml 192.168.0.0/24" start="1573166720" startstr="Thu Nov  7 23:45:20 2019" version="7.80" xmloutputversion="1.04">
 <verbose level="0"/>
 <debugging level="0"/>
-<host><status state="up" reason="conn-refused" reason_ttl="0"/>
-<address addr="192.168.1.50" addrtype="ipv4"/>
-<hostnames>
-</hostnames>
-<times srtt="622" rttvar="5000" to="100000"/>
-</host>
 <host><status state="up" reason="syn-ack" reason_ttl="0"/>
-<address addr="192.168.1.254" addrtype="ipv4"/>
+<address addr="192.168.0.1" addrtype="ipv4"/>
 <hostnames>
 </hostnames>
-<times srtt="2559" rttvar="6108" to="100000"/>
+<times srtt="547" rttvar="5000" to="100000"/>
 </host>
-<runstats><finished time="1572818492" timestr="Sun Nov  3 23:01:32 2019" elapsed="7.21" summary="Nmap done at Sun Nov  3 23:01:32 2019; 256 IP addresses (2 hosts up) scanned in 7.21 seconds" exit="success"/><hosts up="2" down="254" total="256"/>
+<host><status state="up" reason="conn-refused" reason_ttl="0"/>
+<address addr="192.168.0.103" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<times srtt="233" rttvar="3788" to="100000"/>
+</host>
+<runstats><finished time="1573166722" timestr="Thu Nov  7 23:45:22 2019" elapsed="2.31" summary="Nmap done at Thu Nov  7 23:45:22 2019; 256 IP addresses (2 hosts up) scanned in 2.31 seconds" exit="success"/><hosts up="2" down="254" total="256"/>
 </runstats>
 </nmaprun>

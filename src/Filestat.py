@@ -1,4 +1,3 @@
-from auxiliary_functions import get_date, get_path_exists, header, debug, get_checksum
 import subprocess
 import json
 
@@ -7,9 +6,9 @@ class Filestat(object):
     __file_detail_list = []
     __file_name = ""
     __file_type = ""
-    __id_of_owner = ""
-    __group_of_owner = ""
-    __user_of_owner = ""
+    __id_owner = ""
+    __group_owner = ""
+    __user_owner = ""
     __access_right = ""
     __mount_point = ""
     __hard_links = ""
@@ -21,16 +20,17 @@ class Filestat(object):
     def collectData_singleFileDetails(self, file_path: str):
         """ Method return a"""
         tmp_arr = []
+
         self.__file_name = subprocess.run("stat -c %n /{}".format(file_path), shell=True, capture_output=True,
                                           universal_newlines=True)  # -file name
         self.__file_type = subprocess.run("stat -c %F /{}".format(file_path), shell=True, capture_output=True,
                                           universal_newlines=True)  # -file type
-        self.__id_of_owner = subprocess.run("stat -c %u /{}".format(file_path), shell=True, capture_output=True,
-                                            universal_newlines=True)  # -user ID of owner
-        self.__group_of_owner = subprocess.run("stat -c %G /{}".format(file_path), shell=True, capture_output=True,
-                                               universal_newlines=True)  # -group name of owner
-        self.__user_of_owner = subprocess.run("stat -c %U /{}".format(file_path), shell=True, capture_output=True,
-                                              universal_newlines=True)  # -user name of owner
+        self.__id_owner = subprocess.run("stat -c %u /{}".format(file_path), shell=True, capture_output=True,
+                                         universal_newlines=True)  # -user ID of owner
+        self.__group_owner = subprocess.run("stat -c %G /{}".format(file_path), shell=True, capture_output=True,
+                                            universal_newlines=True)  # -group name of owner
+        self.__user_owner = subprocess.run("stat -c %U /{}".format(file_path), shell=True, capture_output=True,
+                                           universal_newlines=True)  # -user name of owner
         self.__access_right = subprocess.run("stat -c %A /{}".format(file_path), shell=True, capture_output=True,
                                              universal_newlines=True)  # -access rights in human readable form
         self.__mount_point = subprocess.run("stat -c %m /{}".format(file_path), shell=True, capture_output=True,
@@ -53,9 +53,9 @@ class Filestat(object):
 
         tmp_arr.append([("file_name", self.__file_name.stdout.strip("\n")),
                         ("file_type", self.__file_type.stdout.strip("\n")),
-                        ("id_of_owner", self.__id_of_owner.stdout.strip("\n")),
-                        ("group_of_owner", self.__group_of_owner.stdout.strip("\n")),
-                        ("user_of_owner", self.__user_of_owner.stdout.strip("\n")),
+                        ("id_owner", self.__id_owner.stdout.strip("\n")),
+                        ("group_owner", self.__group_owner.stdout.strip("\n")),
+                        ("user_owner", self.__user_owner.stdout.strip("\n")),
                         ("access_right", self.__access_right.stdout.strip("\n")),
                         ("mount_point", self.__mount_point.stdout.strip("\n")),
                         ("hard_links", self.__hard_links.stdout.strip("\n")),
@@ -76,12 +76,12 @@ class Filestat(object):
                                               universal_newlines=True)  # -file name
             self.__file_type = subprocess.run("stat -c %F /{}".format(file), shell=True, capture_output=True,
                                               universal_newlines=True)  # -file type
-            self.__id_of_owner = subprocess.run("stat -c %u /{}".format(file), shell=True, capture_output=True,
-                                                universal_newlines=True)  # -user ID of owner
-            self.__group_of_owner = subprocess.run("stat -c %G /{}".format(file), shell=True, capture_output=True,
-                                                   universal_newlines=True)  # -group name of owner
-            self.__user_of_owner = subprocess.run("stat -c %U /{}".format(file), shell=True, capture_output=True,
-                                                  universal_newlines=True)  # -user name of owner
+            self.__id_owner = subprocess.run("stat -c %u /{}".format(file), shell=True, capture_output=True,
+                                             universal_newlines=True)  # -user ID of owner
+            self.__group_owner = subprocess.run("stat -c %G /{}".format(file), shell=True, capture_output=True,
+                                                universal_newlines=True)  # -group name of owner
+            self.__user_owner = subprocess.run("stat -c %U /{}".format(file), shell=True, capture_output=True,
+                                               universal_newlines=True)  # -user name of owner
             self.__access_right = subprocess.run("stat -c %A /{}".format(file), shell=True, capture_output=True,
                                                  universal_newlines=True)  # -access rights in human readable form
             self.__mount_point = subprocess.run("stat -c %m /{}".format(file), shell=True, capture_output=True,
@@ -104,9 +104,9 @@ class Filestat(object):
 
             tmp_arr.append([("file_name", self.__file_name.stdout.strip("\n")),
                             ("file_type", self.__file_type.stdout.strip("\n")),
-                            ("id_of_owner", self.__id_of_owner.stdout.strip("\n")),
-                            ("group_of_owner", self.__group_of_owner.stdout.strip("\n")),
-                            ("user_of_owner", self.__user_of_owner.stdout.strip("\n")),
+                            ("id_owner", self.__id_owner.stdout.strip("\n")),
+                            ("group_owner", self.__group_owner.stdout.strip("\n")),
+                            ("user_owner", self.__user_owner.stdout.strip("\n")),
                             ("access_right", self.__access_right.stdout.strip("\n")),
                             ("mount_point", self.__mount_point.stdout.strip("\n")),
                             ("hard_links", self.__hard_links.stdout.strip("\n")),
@@ -134,14 +134,14 @@ class Filestat(object):
     def get_file_type(self):
         return self.__file_type.stdout
 
-    def get_id_of_owner(self):
-        return self.__id_of_owner.stdout
+    def get_id_owner(self):
+        return self.__id_owner.stdout
 
-    def get_group_of_owner(self):
-        return self.__group_of_owner.stdout
+    def get_group_owner(self):
+        return self.__group_owner.stdout
 
-    def get_user_of_owner(self):
-        return self.__user_of_owner.stdout
+    def get_user_owner(self):
+        return self.__user_owner.stdout
 
     def get_access_right(self):
         return self.__access_right.stdout
@@ -161,4 +161,4 @@ class Filestat(object):
 
 obj = Filestat()
 obj.collectData_singleFileDetails("/etc")
-print(obj.get_file_name())
+print(obj.get_access_right())

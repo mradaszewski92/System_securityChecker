@@ -48,14 +48,13 @@ HEADER $INFO "NETWORK DETAILS"
 
 function get_net_stat{
         # cat /proc/net/dev
-        # cat /proc/net/tcp; cat /proc/net/ud
+        # cat /proc/net/tcp; cat /proc/net/udp
         # cat /proc/net/snmp
         # netstat -i
         # netstat -s
         # netstat --inet/ -4
         # netstat -p | headER
         # netstat -l |head
-        
 
 }
 

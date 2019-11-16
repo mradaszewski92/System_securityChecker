@@ -26,7 +26,7 @@ def debug(type_msg, communicate):
 
 
 def get_checksum(path: str):
-    """ :return returns the checksum based on the file size"""
+    """ :return the checksum based on the file size"""
     command = "du -shb /{} 2>/dev/null".format(path) + "| awk '{print $1}'"
 
     size_in_byte = subprocess.run(command,

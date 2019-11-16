@@ -1,8 +1,6 @@
-import SystemInfo
-from xml.etree.ElementTree import tostring, Element
-import Filestat,SystemInfo
-from auxiliary_functions import *
-from xml.dom import minidom
+from xml.etree.ElementTree import Element
+from src import SystemInfo
+
 
 class Controler(SystemInfo.SystemInfo):
 
@@ -27,6 +25,7 @@ class Controler(SystemInfo.SystemInfo):
 
     def __str__(self):
         return "Controller"
+
 
 test = Controler()
 print(test.render_xml())
