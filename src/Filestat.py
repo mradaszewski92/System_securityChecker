@@ -1,9 +1,14 @@
 import subprocess
 import json
+from abc import ABC
+import time
+from baseclass import BaseClass
+from measurement import Measurement
 
-class Filestat(object):
+
+class FileStat(Measurement, BaseClass):
     __file_detail_dict = {}
-    __file_detail_list = []
+    __file_details_dict = {}
     __file_name = ""
     __file_type = ""
     __id_owner = ""
@@ -17,9 +22,10 @@ class Filestat(object):
     __last_modification = ""
     __last_status_change = ""
 
-    def collectData_singleFileDetails(self, file_path: str):
-        """ Method return a"""
-        tmp_arr = []
+    def collect_data_single_file_details(self, file_path: str):
+        """ Method collect data about single file, and assignee data to list"""
+        start = time.time()
+        tmp_arr = list()
 
         self.__file_name = subprocess.run("stat -c %n /{}".format(file_path), shell=True, capture_output=True,
                                           universal_newlines=True)  # -file name
@@ -66,11 +72,13 @@ class Filestat(object):
                         ]
                        )
         self.__file_detail_dict['file_details'] = tmp_arr
-        self.__file_detail_list = tmp_arr
+        end = time.time()
+        self.__execution_time.append(("collect_data_single_file_details", end - start))
 
-    def collectData_multipleFileDetails(self, files_path: list):
-        """ Method return a"""
-        tmp_arr = []
+    def collect_data_multiple_file_details(self, files_path: list):
+        """" Method collect data about multiple files, and assignee to list. Method has additional loop inside"""
+        start = time.time()
+        tmp_arr = list()
         for file in files_path:
             self.__file_name = subprocess.run("stat -c %n /{}".format(file), shell=True, capture_output=True,
                                               universal_newlines=True)  # -file name
@@ -115,15 +123,26 @@ class Filestat(object):
                             ("last_status_change", self.__last_status_change.stdout.strip("\n")),
                             ("total_size", self.__total_size.stdout.strip("\n"))
                             ])
+        end = time.time()
+        self.__file_details_dict['file_details'] = tmp_arr
+        self.__execution_time.append(("collect_data_multiple_file_details", end - start))
 
-        self.__file_detail_dict['file_details'] = tmp_arr
-        self.__file_detail_list = tmp_arr
+    def write_logs(self, path):
+        max_len = len(self.__file_details_dict["file_details"])
+        data = self.__file_details_dict["file_details"]
+
+        with open(f"{path}", "w") as writer:
+
+            for col in range(0, len(data)):
+                for row in range(0, len(data[0])):
+                    writer.writelines(data[col][row][0] + " : " + data[col][row][1] + "\n")
+                writer.writelines("-----------------------------------\n")
+
+    def get_execution_time(self):
+        return self.__execution_time
 
     def get_files_detail_dict(self):
         return self.__file_detail_dict
-
-    def get_files_detail_list(self):
-        return self.__file_detail_list
 
     def get_files_detail_json(self):
         return json.dumps(self.__file_detail_dict)
@@ -159,6 +178,7 @@ class Filestat(object):
         return "collectData_multipleFileDetails"
 
 
-obj = Filestat()
-obj.collectData_singleFileDetails("/etc")
-print(obj.get_access_right())
+obj = FileStat()
+
+obj.collect_data_multiple_file_details(["home/reg3x", "home/reg3x/Documents/test"])
+obj.write_logs("../report/FIlestat")

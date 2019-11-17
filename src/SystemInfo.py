@@ -3,13 +3,15 @@ from subprocess import PIPE
 import time
 import os
 import json
+from measurement import Measurement
 
 info = "[*]"
 
-class SystemInfo(object):
 
+class SystemInfo(Measurement):
     os_info_dict: dict = {}
     os_info_list: list = []
+    __execution_time = list()
 
     def os_info(self):
 
@@ -36,6 +38,9 @@ class SystemInfo(object):
 
             self.os_info_dict['os_info'] = os_info
             self.os_info_list = os_info
+            end = time.time()
+
+            self.__execution_time.append(("os_info", end - start))
 
         except subprocess.TimeoutExpired as timeExpired:
             print(timeExpired)
@@ -53,18 +58,21 @@ class SystemInfo(object):
         """:return os info as json"""
         return json.dumps(self.get_osInfo_dict())
 
+    def get_execution_time(self):
+        pass
+
+    def write_logs(self, path):
+        pass
+
     def __str__(self):
         return "System info"
 
 
-class ServiceInfo(object):
-    """ {'service_name':[('service_name', state)]}
-                        or
-            [('service_name', state)] """
+class ServiceInfo(Measurement):
 
+    __execution_time = list()
     active_services_list = []
     active_services_dict = {}
-    time = 0.0
 
     def service_info(self):
 
@@ -74,22 +82,21 @@ class ServiceInfo(object):
                                  capture_output=True).stdout.decode("utf-8").split("\n")
 
         # APPEND ACTIVE SERVICE TO tmpArr: list
-        tmpArr = []
+        tmp_arr = []
         for i in range(0, len(service)):
             if service[i] != "":
-                tmpArr.append((service[i].split(" ")[5], "up"))
+                tmp_arr.append((service[i].split(" ")[5], "up"))
 
         end = time.time()
 
-        self.time = end-start
+        self.active_services_list = tmp_arr
+        self.active_services_dict['service_info'] = tmp_arr
 
-        self.active_services_list = tmpArr
-        self.active_services_dict['service_info'] = tmpArr
-        print(self.active_services_dict)
+        self.__execution_time.append(("service_info", end - start))
 
     def get_execution_time(self):
         """ :return time execution"""
-        return self.time
+        return self.__execution_time
 
     def get_active_service_list(self):
         """ :return all active service in system as list"""
@@ -102,6 +109,9 @@ class ServiceInfo(object):
     def get_active_service_list_json(self):
         """ :return all active service in system as json"""
         return json.dumps(self.active_services_dict)
+
+    def write_logs(self, path):
+        pass
 
     def __str__(self):
         return "Service_Info"
