@@ -176,9 +176,3 @@ class FileStat(Measurement, BaseClass):
 
     def __str__(self):
         return "collectData_multipleFileDetails"
-
-
-obj = FileStat()
-
-obj.collect_data_multiple_file_details(["home/reg3x", "home/reg3x/Documents/test"])
-obj.write_logs("../report/FIlestat")

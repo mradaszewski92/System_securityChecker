@@ -151,10 +151,3 @@ class InspectDirectories(FileStat, Measurement):
                 data_line = str(self.__catalog_checksums['Catalog checksums'][i][0]) + " " \
                        + str(self.__catalog_checksums['Catalog checksums'][i][1] + "\n")
                 self.__writer.writelines(data_line)
-
-
-obj = InspectDirectories()
-obj.walk_trough_dir()
-obj.collect_hidden_files("home/reg3x")
-obj.collect_hidden_files_details("home/reg3x")
-print(obj.get_hidden_file_dict())

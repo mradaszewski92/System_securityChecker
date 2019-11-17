@@ -38,8 +38,12 @@ class XmlRaport(object):
 class Xml_fascade(object):
 
     def __init__(self):
-        self.dir_check = Filestat.DirCheck()
+        self.dir_check = Filestat()
         self.system_info = SystemInfo.SystemInfo()
 
-    def write(self):
-        pass
+
+DirCheck
+
+
+def write(self):
+    pass
