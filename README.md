@@ -5,7 +5,10 @@ Security auditing tool for Linux Debian.
 
 ## Used technologies:
 * Python 3
-* Linux Shell
+* Bash
+* Scapy
 
 ## FEATURES:
-
+* Generate raport in XML or JSON(for web)
+* Controls hidden files, logs in and analyzes
+* Collects system information
